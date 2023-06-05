@@ -74,5 +74,48 @@ public class FilmsTest {
         Assertions.assertArrayEquals(expected, actual);
     }
 
+    @Test
+    public void ShouldReturnLastSeven() { //лимит 5 всего 5
+        FilmsManager manager = new FilmsManager(5);
+        manager.addFilm(film1);
+        manager.addFilm(film2);
+        manager.addFilm(film3);
+        manager.addFilm(film4);
+        manager.addFilm(film5);
+
+        Films[] expected = {film5, film4, film3, film2, film1};
+        Films[] actual = manager.findLast();
+        Assertions.assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void ShouldReturnLastTwo() { //лимит 2 всего 7 (больше лимита)
+        FilmsManager manager = new FilmsManager(2);
+        manager.addFilm(film1);
+        manager.addFilm(film2);
+        manager.addFilm(film3);
+        manager.addFilm(film4);
+        manager.addFilm(film5);
+        manager.addFilm(film6);
+        manager.addFilm(film7);
+
+        Films[] actual = manager.findLast();
+        Films[] expected = {film7, film6};
+        Assertions.assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void ShouldReturnLastLessLimit() { //лимит 5 всего 3 (меньше лимита)
+        FilmsManager manager = new FilmsManager(5);
+
+        manager.addFilm(film5);
+        manager.addFilm(film6);
+        manager.addFilm(film7);
+
+        Films[] actual = manager.findLast();
+        Films[] expected = {film7, film6, film5};
+
+        Assertions.assertArrayEquals(expected, actual);
+    }
 
 }
